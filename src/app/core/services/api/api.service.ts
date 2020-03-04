@@ -3,16 +3,16 @@ import { environment } from '../../../../environments/environment'
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
 
-import { JwtService } from '../jwt/jwt.service'
 import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient, private jwtService: JwtService) {}
+  constructor(private http: HttpClient) {}
 
   private formatErrors(error: any) {
+    console.log('error', error)
     return throwError(error.error)
   }
 
