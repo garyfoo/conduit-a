@@ -5,7 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { ListErrorsComponent } from './list-errors/list-errors.component'
 import { HttpClientModule } from '@angular/common/http'
-import { ShowAuthedDirective } from './directive/show-authed.directive'
+import { ShowAuthedDirective } from './directive/show-authed.directive';
+import { ArticleListComponent } from './article-helpers/article-list/article-list.component';
+import { ArticlePreviewComponent } from './article-helpers/article-preview/article-preview.component';
+import { ArticleMetaComponent } from './article-helpers/article-meta/article-meta.component';
+import { FavouriteButtonComponent } from './buttons/favourite-button/favourite-button.component';
+import { FollowButtonComponent } from './buttons/follow-button/follow-button.component';
+import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-button.component'
 
 @NgModule({
   declarations: [
@@ -13,6 +19,12 @@ import { ShowAuthedDirective } from './directive/show-authed.directive'
     HeaderComponent,
     ListErrorsComponent,
     ShowAuthedDirective,
+    ArticleListComponent,
+    ArticlePreviewComponent,
+    ArticleMetaComponent,
+    FavouriteButtonComponent,
+    FollowButtonComponent,
+    FavoriteButtonComponent,
   ],
   imports: [
     CommonModule,

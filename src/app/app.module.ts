@@ -8,6 +8,7 @@ import { HomeModule } from './home/home.module'
 import { SharedModule } from './shared'
 import { AuthModule } from './auth/auth.module'
 import { CoreModule } from './core/core.module'
+import { EditorModule } from './editor/editor.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { CoreModule } from './core/core.module'
     SharedModule,
     AuthModule,
     CoreModule,
+    EditorModule,
     AppRoutingModule,
   ],
   providers: [],

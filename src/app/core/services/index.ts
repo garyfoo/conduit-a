@@ -1,3 +1,6 @@
 export * from './api/api.service'
 export * from './jwt/jwt.service'
 export * from './user/user.service'
+export * from './articles/articles.service'
+export * from './comments/comments.service'
+export * from './tags/tags.service'
