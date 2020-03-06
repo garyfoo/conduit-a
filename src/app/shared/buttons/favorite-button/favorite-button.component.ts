@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Article, ArticlesService, UserService } from '../../core';
+import { Article, ArticlesService, UserService } from '../../../core';
 import { of } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 

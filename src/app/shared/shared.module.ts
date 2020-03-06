@@ -9,7 +9,6 @@ import { ShowAuthedDirective } from './directive/show-authed.directive';
 import { ArticleListComponent } from './article-helpers/article-list/article-list.component';
 import { ArticlePreviewComponent } from './article-helpers/article-preview/article-preview.component';
 import { ArticleMetaComponent } from './article-helpers/article-meta/article-meta.component';
-import { FavouriteButtonComponent } from './buttons/favourite-button/favourite-button.component';
 import { FollowButtonComponent } from './buttons/follow-button/follow-button.component';
 import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-button.component'
 
@@ -22,7 +21,6 @@ import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-butt
     ArticleListComponent,
     ArticlePreviewComponent,
     ArticleMetaComponent,
-    FavouriteButtonComponent,
     FollowButtonComponent,
     FavoriteButtonComponent,
   ],
@@ -42,6 +40,11 @@ import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-butt
     HttpClientModule,
     ListErrorsComponent,
     ShowAuthedDirective,
+    ArticleListComponent,
+    ArticlePreviewComponent,
+    ArticleMetaComponent,
+    FollowButtonComponent,
+    FavoriteButtonComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
