@@ -7,6 +7,7 @@ import { ArticleCommentComponent } from './article-comment/article-comment.compo
 import { SharedModule } from '../shared'
 
 import { ArticleResolverService } from './article-resolver.service'
+import { MarkdownPipe } from './markdown.pipe'
 
 @NgModule({
   declarations: [ArticleComponent, ArticleCommentComponent, MarkdownPipe],
