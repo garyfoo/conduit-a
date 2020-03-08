@@ -34,6 +34,7 @@ export class ShowAuthedDirective implements OnInit, OnDestroy {
           (isAuthenticated && this.condition) ||
           (!isAuthenticated && !this.condition)
         ) {
+          this.viewContainer.clear()
           this.viewContainer.createEmbeddedView(this.templateRef)
         } else {
           this.viewContainer.clear()
