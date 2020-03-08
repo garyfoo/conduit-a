@@ -8,7 +8,8 @@ import {
 import { Observable } from 'rxjs'
 
 import { UserService } from '../../core'
-import { take } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
+import { UserState } from 'src/app/core/services/user/user.state'
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.userService.isAuthenticated.pipe(take(1))
+    return this.userService.state$.pipe(
+      take(1),
+      map((userServiceState: UserState) => {
+        return userServiceState.isAuthenticated
+      })
+    )
   }
 }

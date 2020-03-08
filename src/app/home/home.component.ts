@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { TagsService } from '../core/services/tags/tags.service'
 import { UserService } from '../core'
 import { ArticleListConfig } from '../article/shared/models/article-list-config.model'
+import { Subscription } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private tagsService: TagsService,
@@ -23,13 +25,16 @@ export class HomeComponent implements OnInit {
   }
   tags: Array<string> = []
   tagsLoaded = false
+  userServiceSubscription: Subscription
 
   ngOnInit(): void {
-    this.userService.isAuthenticated.subscribe(authenticated => {
-      this.isAuthenticated = authenticated
+    console.log('ngoninit home component')
+    this.userServiceSubscription = this.userService.state$.subscribe(state => {
+      console.log('state in home component', state)
+      this.isAuthenticated = state.isAuthenticated
 
       // set the article list accordingly
-      if (authenticated) {
+      if (state.isAuthenticated) {
         this.setListTo('feed')
       } else {
         this.setListTo('all')
@@ -40,6 +45,10 @@ export class HomeComponent implements OnInit {
       this.tags = tags
       this.tagsLoaded = true
     })
+  }
+
+  ngOnDestroy(): void {
+    this.userServiceSubscription.unsubscribe()
   }
 
   setListTo(type: string = '', filters: object = {}) {

@@ -6,20 +6,16 @@ import { ApiService } from '../api/api.service'
 import { JwtService } from '../jwt/jwt.service'
 import { User } from '../../models'
 import { map, distinctUntilChanged } from 'rxjs/operators'
+import { Store } from 'src/app/shared/store/store'
+import { UserState } from './user.state'
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private currentUserSubject = new BehaviorSubject<User>({} as User)
-  public currentUser = this.currentUserSubject
-    .asObservable()
-    .pipe(distinctUntilChanged())
-
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1)
-  public isAuthenticated = this.isAuthenticatedSubject.asObservable()
-
-  constructor(private apiService: ApiService, private jwtService: JwtService) {}
+export class UserService extends Store<UserState> {
+  constructor(private apiService: ApiService, private jwtService: JwtService) {
+    super({ isAuthenticated: false, currentUser: {} as User })
+  }
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
@@ -40,18 +36,16 @@ export class UserService {
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token)
     // Set current user data into observable
-    this.currentUserSubject.next(user)
     // Set isAuthenticated to true
-    this.isAuthenticatedSubject.next(true)
+    this.setState({ isAuthenticated: true, currentUser: user })
   }
 
   purgeAuth() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken()
     // Set current user to an empty object
-    this.currentUserSubject.next({} as User)
     // Set auth status to false
-    this.isAuthenticatedSubject.next(false)
+    this.setState({ isAuthenticated: false, currentUser: {} as User })
   }
 
   attemptAuth(type, credentials): Observable<User> {
@@ -64,16 +58,15 @@ export class UserService {
     )
   }
 
-  getCurrentUser(): User {
-    return this.currentUserSubject.value
-  }
-
   // Update the user on the server (email, pass, etc)
   update(user): Observable<User> {
     return this.apiService.put('/user', { user }).pipe(
       map(data => {
         // Update the currentUser observable
-        this.currentUserSubject.next(data.user)
+        this.setState({
+          isAuthenticated: this.state.isAuthenticated,
+          currentUser: data.user as User,
+        })
         return data.user
       })
     )

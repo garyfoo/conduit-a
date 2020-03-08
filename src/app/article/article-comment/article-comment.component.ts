@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs'
 export class ArticleCommentComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService) {}
 
-  private subscription: Subscription
+  userServiceSubscription: Subscription
 
   @Input() comment: Comment
   @Output() deleteComment = new EventEmitter<boolean>()
@@ -27,15 +27,14 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Load the current user's data
-    this.subscription = this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.canModify = userData.username === this.comment.author.username
-      }
-    )
+    this.userServiceSubscription = this.userService.state$.subscribe(state => {
+      this.canModify =
+        state.currentUser.username === this.comment.author.username
+    })
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.userServiceSubscription.unsubscribe()
   }
 
   deleteClicked() {

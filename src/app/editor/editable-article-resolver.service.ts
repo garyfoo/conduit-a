@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
 import { catchError, map } from 'rxjs/operators'
 import { Article } from '../article/shared/models/article.model'
@@ -21,19 +21,25 @@ export class EditableArticleResolverService implements Resolve<Article> {
     private userService: UserService
   ) {}
 
+  userServiceSubscription: Subscription
+
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
     return this.articlesService.get(route.params[`slug`]).pipe(
       map(article => {
-        if (
-          this.userService.getCurrentUser().username === article.author.username
-        ) {
-          return article
-        } else {
-          this.router.navigateByUrl('/')
-        }
+        this.userServiceSubscription = this.userService.state$.subscribe(
+          userServiceState => {
+            if (
+              userServiceState.currentUser.username === article.author.username
+            ) {
+              return article
+            } else {
+              this.router.navigateByUrl('/')
+            }
+          }
+        )
       }),
       catchError(err => this.router.navigateByUrl('/'))
     )

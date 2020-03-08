@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { concatMap, tap } from 'rxjs/operators'
-import { of } from 'rxjs'
+import { of, Subscription } from 'rxjs'
 import { Profile } from 'src/app/profile/shared/models/profile.model'
 import { ProfilesService } from 'src/app/profile/shared/services/profiles/profiles.service'
 import { UserService } from 'src/app/core'
@@ -29,11 +29,11 @@ export class FollowButtonComponent implements OnInit {
     this.isSubmitting = true
     // TODO: remove nested subscribes, use mergeMap
 
-    this.userService.isAuthenticated
+    this.userService.state$
       .pipe(
-        concatMap(authenticated => {
+        concatMap(state => {
           // Not authenticated? Push to login screen
-          if (!authenticated) {
+          if (!state.isAuthenticated) {
             this.router.navigateByUrl('/login')
             return of(null)
           }

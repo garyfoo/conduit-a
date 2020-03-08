@@ -9,6 +9,7 @@ import { Observable } from 'rxjs'
 
 import { map, take } from 'rxjs/operators'
 import { UserService } from 'src/app/core'
+import { UserState } from 'src/app/core/services/user/user.state'
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +21,11 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.userService.isAuthenticated.pipe(
+    return this.userService.state$.pipe(
       take(1),
-      map(isAuth => !isAuth)
+      map((userServiceState: UserState) => {
+        return !userServiceState.isAuthenticated
+      })
     )
   }
 }

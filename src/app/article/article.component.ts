@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 
@@ -6,13 +6,14 @@ import { Comment, User, UserService } from '../core'
 import { Article } from './shared/models/article.model'
 import { ArticlesService } from './shared/services/articles/articles.service'
 import { CommentsService } from './shared/services/comments/comments.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnDestroy {
   article: Article
   currentUser: User
   canModify: boolean
@@ -21,6 +22,7 @@ export class ArticleComponent implements OnInit {
   commentFormErrors = {}
   isSubmitting = false
   isDeleting = false
+  userServiceSubscription: Subscription
 
   constructor(
     private route: ActivatedRoute,
@@ -40,12 +42,16 @@ export class ArticleComponent implements OnInit {
     })
 
     // Load the current user's data
-    this.userService.currentUser.subscribe((userData: User) => {
-      this.currentUser = userData
+    this.userServiceSubscription = this.userService.state$.subscribe(state => {
+      this.currentUser = state.currentUser
 
       this.canModify =
         this.currentUser.username === this.article.author.username
     })
+  }
+
+  ngOnDestroy(): void {
+    this.userServiceSubscription.unsubscribe()
   }
 
   onToggleFavorite(favorited: boolean) {

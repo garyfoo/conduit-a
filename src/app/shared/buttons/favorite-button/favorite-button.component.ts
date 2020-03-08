@@ -28,11 +28,11 @@ export class FavoriteButtonComponent implements OnInit {
   toggleFavorite() {
     this.isSubmitting = true
 
-    this.userService.isAuthenticated
+    this.userService.state$
       .pipe(
-        concatMap(authenticated => {
+        concatMap(state => {
           // Not authenticated? Push to login screen
-          if (!authenticated) {
+          if (!state.isAuthenticated) {
             this.router.navigateByUrl('/login')
             return of(null)
           }

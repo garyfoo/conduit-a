@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 
 import { User, UserService } from '../core'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
   user: User = {} as User
   settingsForm: FormGroup
   errors: object = {}
   isSubmitting = false
+  userServiceSubscription: Subscription
 
   constructor(
     private router: Router,
@@ -34,9 +36,15 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     // Make a fresh copy of the current user's object to place in editable form fields
-    Object.assign(this.user, this.userService.getCurrentUser())
+    this.userServiceSubscription = this.userService.state$.subscribe(state => {
+      Object.assign(this.user, state.currentUser)
+    })
     // Fill the form
     this.settingsForm.patchValue(this.user)
+  }
+
+  ngOnDestroy(): void {
+    this.userServiceSubscription.unsubscribe()
   }
 
   logout() {
