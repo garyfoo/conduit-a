@@ -16,6 +16,7 @@ import { Article, ArticlesService } from '../core'
   styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit {
+  article: Article = {} as Article
   articleForm: FormGroup
   tagField = new FormControl()
   errors: object = {}
@@ -39,7 +40,15 @@ export class EditorComponent implements OnInit {
     return this.articleForm.get('tagList') as FormArray
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // If there's an article prefetched, load it
+    this.route.data.subscribe((data: { article: Article }) => {
+      if (data.article) {
+        this.article = data.article
+        this.articleForm.patchValue(data.article)
+      }
+    })
+  }
 
   addTag() {
     // retrieve tag control

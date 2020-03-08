@@ -45,11 +45,11 @@
 
               <div class="tag-list">
                 <span
-                  *ngFor="let tag of tagList.controls; let i = index"
+                  *ngFor="let tag of article.tagList"
                   class="tag-default tag-pill"
                 >
-                  <i class="ion-close-round" (click)="removeTag(i)"></i>
-                  {{ tag.value }}
+                  <i class="ion-close-round" (click)="removeTag(tag)"></i>
+                  {{ tag }}
                 </span>
               </div>
             </fieldset>
@@ -58,15 +58,11 @@
               class="btn btn-lg pull-xs-right btn-primary"
               type="button"
               (click)="submitForm()"
-              [disabled]="!articleForm.valid || isSubmitting"
             >
               Publish Article
             </button>
           </fieldset>
         </form>
-        <p>Form Value: {{ articleForm.value | json }}</p>
-
-        <p>Form Status: {{ articleForm.status }}</p>
       </div>
     </div>
   </div>
