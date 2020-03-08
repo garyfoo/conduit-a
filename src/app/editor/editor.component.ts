@@ -7,8 +7,8 @@ import {
   FormArray,
 } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-
-import { Article, ArticlesService } from '../core'
+import { Article } from '../article/shared/models/article.model'
+import { ArticlesService } from '../article/shared/services/articles/articles.service'
 
 @Component({
   selector: 'app-editor',

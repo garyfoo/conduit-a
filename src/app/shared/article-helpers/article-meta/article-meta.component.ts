@@ -1,19 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { Article } from '../../../core';
+import { Component, Input, OnInit } from '@angular/core'
+import { Article } from 'src/app/article/shared/models/article.model'
 
 @Component({
   selector: 'app-article-meta',
   templateUrl: './article-meta.component.html',
-  styleUrls: ['./article-meta.component.scss']
+  styleUrls: ['./article-meta.component.scss'],
 })
 export class ArticleMetaComponent implements OnInit {
+  @Input() article: Article
 
-  @Input() article: Article;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

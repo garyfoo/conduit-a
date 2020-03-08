@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-
-import { ArticleListConfig, Profile } from '../../core'
+import { Profile } from '../shared/models/profile.model'
+import { ArticleListConfig } from 'src/app/article/shared/models/article-list-config.model'
 
 @Component({
   selector: 'app-profile-favorites',

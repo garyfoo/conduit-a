@@ -2,14 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 
-import {
-  Article,
-  ArticlesService,
-  Comment,
-  CommentsService,
-  User,
-  UserService,
-} from '../core'
+import { Comment, User, UserService } from '../core'
+import { Article } from './shared/models/article.model'
+import { ArticlesService } from './shared/services/articles/articles.service'
+import { CommentsService } from './shared/services/comments/comments.service'
 
 @Component({
   selector: 'app-article',

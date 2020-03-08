@@ -7,8 +7,8 @@ import {
 } from '@angular/router'
 import { Observable } from 'rxjs'
 
-import { Profile, ProfilesService } from '../core'
 import { catchError } from 'rxjs/operators'
+import { ProfilesService } from './shared/services/profiles/profiles.service'
 @Injectable({
   providedIn: 'root',
 })

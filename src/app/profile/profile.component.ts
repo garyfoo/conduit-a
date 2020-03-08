@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
-import { User, UserService, Profile } from '../core'
 import { concatMap, tap } from 'rxjs/operators'
+import { UserService, User } from '../core'
+import { Profile } from './shared/models/profile.model'
 
 @Component({
   selector: 'app-profile',

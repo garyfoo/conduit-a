@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-
-import { ArticleListConfig, TagsService, UserService } from '../core'
+import { TagsService } from '../core/services/tags/tags.service'
+import { UserService } from '../core'
+import { ArticleListConfig } from '../article/shared/models/article-list-config.model'
 
 @Component({
   selector: 'app-home-page',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { ApiService } from '../api/api.service'
-import { Comment } from '../../models'
+import { ApiService } from '../../../../core/services/api/api.service'
+import { Comment } from '../../../../core/models'
 import { map } from 'rxjs/operators'
 
 @Injectable({

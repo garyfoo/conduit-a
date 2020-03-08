@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { ApiService } from '../api/api.service'
-import { Profile } from '../../models'
+import { ApiService } from '../../../../core/services/api/api.service'
 import { map } from 'rxjs/operators'
+import { Profile } from '../../models/profile.model'
 
 @Injectable({
   providedIn: 'root',

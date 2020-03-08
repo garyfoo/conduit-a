@@ -7,8 +7,10 @@ import {
 } from '@angular/router'
 import { Observable } from 'rxjs'
 
-import { Article, ArticlesService, UserService } from '../core'
 import { catchError, map } from 'rxjs/operators'
+import { Article } from '../article/shared/models/article.model'
+import { ArticlesService } from '../article/shared/services/articles/articles.service'
+import { UserService } from '../core'
 @Injectable({
   providedIn: 'root',
 })

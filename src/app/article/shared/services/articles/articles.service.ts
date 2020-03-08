@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core'
 import { HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
-import { ApiService } from '../api/api.service'
-import { Article, ArticleListConfig } from '../../models'
 import { map } from 'rxjs/operators'
+import { ApiService } from 'src/app/core'
+import { ArticleListConfig } from '../../models/article-list-config.model'
+import { Article } from '../../models/article.model'
 
 @Injectable({
   providedIn: 'root',
