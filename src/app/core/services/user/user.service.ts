@@ -62,11 +62,13 @@ export class UserService extends Store<UserState> {
   update(user): Observable<User> {
     return this.apiService.put('/user', { user }).pipe(
       map(data => {
+        console.log('this.state before spread operator', this.state)
         // Update the currentUser observable
         this.setState({
-          isAuthenticated: this.state.isAuthenticated,
+          ...this.state,
           currentUser: data.user as User,
         })
+        console.log('this.state after spread operator', this.state)
         return data.user
       })
     )
